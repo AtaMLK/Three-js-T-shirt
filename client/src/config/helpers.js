@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export const downloadCanvasToImage = () => {
   const canvas = document.querySelector("canvas");
   const dataURL = canvas.toDataURL();
