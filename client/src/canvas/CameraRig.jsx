@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useRef } from "react";
 import state from "../store";
-import { useFrame } from "@react-three/fiber";
-import { useSnapshot } from "valtio";
 import { easing } from "maath";
+import { useRef } from "react";
+import { useSnapshot } from "valtio";
+import { useFrame } from "@react-three/fiber";
 
 function CameraRig({ children }) {
   const group = useRef();
@@ -20,7 +20,7 @@ function CameraRig({ children }) {
       if (isMobile) targetPosition = [0, 0.2, 2.5];
     } else {
       if (isMobile) targetPosition = [0, 0, 2.5];
-      else targetPosition = [0, 0.2, 2];
+      else targetPosition = [0, 0, 2];
     }
 
     //set model camera position
