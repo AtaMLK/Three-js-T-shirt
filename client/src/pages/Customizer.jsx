@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -34,13 +35,45 @@ function Customizer() {
       case "colorpicker":
         return <ColorPicker />;
       case "filepicker":
-        return <FilePicker />;
+        return <FilePicker file={file} setFile={setFile} readFile={readFile} />;
       case "aipicker":
         return <AIPicker />;
       default:
         return null;
     }
   };
+
+  function handleDecal(type, result) {
+    const decalType = DecalTypes[type];
+
+    state[decalType.statProperty] = result;
+
+    if (!activeFilterTab[decalType.FilterTabs]) {
+      handleActiveFilterTab(decalType.FilterTabs);
+    }
+  }
+
+  function handleActiveFilterTab(tabname) {
+    switch (tabname) {
+      case "logoShirt":
+        state.isLogoTexture = !activeFilterTab[tabname];
+        break;
+      case "stylishShirt":
+        state.isFullTexture = !activeFilterTab[tabname];
+      default:
+        state.isLogoTexture = true;
+        state.isFullTexture = false;
+    }
+  }
+
+  function readFile(type) {
+    reader(file)
+      .then((result) => {
+        handleDecal(type, result);
+        setActiveEditorTab("");
+      })
+      .catch((error) => console.error("Error reading file:", error));
+  }
 
   return (
     <AnimatePresence>
